@@ -1,29 +1,16 @@
-# README #
+# TikTok Music Recommendation Playlist Generator #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+[Workspace](https://trello.com/b/QOrGF8iI/tiktok-music-video-playlist-generator)
 
-### What is this repository for? ###
+Takes a tiktok video that contains screenshots songs that somebody is recommending.
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Creates a SpotifyPlaylist of the songs in the video.
 
-### How do I get set up? ###
+### Tools Used: ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* OpenCV
+* Tesseract
+* Trello
+* Git
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+The aim of the project is to develop a backend for the program in python with the intention of creating a view interface for a possible iOS app or simple web app.
