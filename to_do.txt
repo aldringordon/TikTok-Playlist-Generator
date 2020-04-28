@@ -1,0 +1,27 @@
+to do:
+
+Class: SongReader
+Dependancies:
+    - tesseract : for text recognition on images
+
+    getSongImages():
+import: Video <- input downloaded tiktok video (mp4)
+export: Frames[] <- one frame/image for each song
+
+    formatImages():
+import: Frames[] <- song images
+export: Names[] <- cropped images that contain only the title/artist part
+
+    getSongs():
+import: Names[] <- images containing song information
+export: Songs[] <- list of songs
+
+
+Class: PlayListGenerator
+Dependancies:
+    - Spotify API : for searching for songs and creating playlist
+
+    generatePlaylist():
+import: Songs[] <- list of songs
+export: Playlist <- spotify link to playlist
+
