@@ -6,10 +6,38 @@ from skimage.measure import compare_ssim as ssim
 
 # ImageCompare: returns true if 2 images are the same
 # uses: cv2, numpy, sckit
+
+# references:
+# https://gist.github.com/gonzalo123/df3e43477f8627ecd1494d138eae03ae
+# https://www.pyimagesearch.com/2017/06/19/image-difference-with-opencv-and-python/
 ####################################################################################
 
+#note: the two images must have the same dimension
+def mse(imageA, imageB):
+    error = np.sum((imageA.astype("float") - imageB.astype("float")) ** 2)
+    error /= float(imageA.shape[0] * imageA.shape[1]
+    return error
 
+def diff_remove_bg(img0, img1, im2):
+    d1 = diff(img0, img1)
+    d2 = diff(img1, img2)
+    return sv2.bitwise_and(d1, d2)
 
+def checkFrames(x1, x2):
+    x1 = cv2.cvtColor(x1, cv2.COLOR_BGR2GRAY)
+    x2 = cv2.cvtColor(x2, cv2.COLOR_BGR2GRAY)
+
+    absdiff = cv2.absdiff(x1, x2)
+
+    diff = cv2.subtract(x1, x2)
+    result = not.np.any(diff)
+
+    m = mse(x1, x2)
+    s = ssim(x1, x2)
+
+    print "mse: %m, ssim: %s" % (m, s)
+
+    return result
 
 # Gets frames of song
 # uses: cv2, ImageCompare
