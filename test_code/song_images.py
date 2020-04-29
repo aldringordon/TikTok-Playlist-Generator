@@ -15,7 +15,7 @@ from skimage.measure import compare_ssim as ssim
 #note: the two images must have the same dimension
 def mse(imageA, imageB):
     error = np.sum((imageA.astype("float") - imageB.astype("float")) ** 2)
-    error /= float(imageA.shape[0] * imageA.shape[1]
+    error /= float(imageA.shape[0] * imageA.shape[1])
     return error
 
 def diff_remove_bg(img0, img1, im2):
@@ -30,12 +30,12 @@ def checkFrames(x1, x2):
     absdiff = cv2.absdiff(x1, x2)
 
     diff = cv2.subtract(x1, x2)
-    result = not.np.any(diff)
+    result = not np.any(diff)
 
     m = mse(x1, x2)
     s = ssim(x1, x2)
 
-    print "mse: %m, ssim: %s" % (m, s)
+    print("mse: "+str(m)+" ssim: "+str(s))
 
     return result
 
