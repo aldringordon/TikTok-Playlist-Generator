@@ -23,21 +23,30 @@ def diff_remove_bg(img0, img1, im2):
     d2 = diff(img1, img2)
     return sv2.bitwise_and(d1, d2)
 
-def checkFrames(x1, x2):
+def writeDiff(x1, x2, frame):
     x1 = cv2.cvtColor(x1, cv2.COLOR_BGR2GRAY)
     x2 = cv2.cvtColor(x2, cv2.COLOR_BGR2GRAY)
 
     absdiff = cv2.absdiff(x1, x2)
+    cv2.imwrite("diff/diff_"+str(frame)+".png", absdiff)
 
-    diff = cv2.subtract(x1, x2)
-    result = not np.any(diff)
+def writeSame(x1, x2, frame):
+    x1 = cv2.cvtColor(x1, cv2.COLOR_BGR2GRAY)
+    x2 = cv2.cvtColor(x2, cv2.COLOR_BGR2GRAY)
 
-    m = mse(x1, x2)
-    s = ssim(x1, x2)
+    absdiff = cv2.absdiff(x1, x2)
+    cv2.imwrite("same/same_"+str(frame)+".png", absdiff)
 
-    print("mse: "+str(m)+" ssim: "+str(s))
 
-    return result
+def checkFrames(x1, x2, frame):
+    x1 = cv2.cvtColor(x1, cv2.COLOR_BGR2GRAY)
+    x2 = cv2.cvtColor(x2, cv2.COLOR_BGR2GRAY)
+
+    m = mse(x1, x2) # mse
+    s = ssim(x1, x2) # ssim
+  
+    print(str(frame) + " - (mse, ssim) -> ("+str(m)+", "+str(s)+")")
+    return m
 
 # Gets frames of song
 # uses: cv2, ImageCompare
@@ -61,6 +70,8 @@ def getFrame(sec):
         saveFrames(image) # append to list
     return hasFrames
 
+print(len(frames))
+
 sec = 0
 frameRate = 0.1 #//it will capture image in each 0.2 second
 count=1
@@ -70,9 +81,13 @@ while success:
     sec = round(sec + frameRate, 2)
     success = getFrame(sec)
 
-i = 1
-while i < len(frames):
-    if frames[i] == frames[i-1]:
-        frames.pop(i)
+songs = []
 
+for i in range(1, len(frames)):
+    if checkFrames(frames[i-1], frames[i], i) > 1000.0:
+        writeDiff(frames[i-1], frames[i], i)
+    else:
+        writeSame(frames[i-1], frames[i], i)
+        songs.append(frames[i])
 
+print("same frames: "+str(len(frame)))
