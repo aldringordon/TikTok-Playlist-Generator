@@ -23,28 +23,26 @@ def diff_remove_bg(img0, img1, im2):
     d2 = diff(img1, img2)
     return sv2.bitwise_and(d1, d2)
 
-def writeDiff(x1, x2, frame):
+def writeImage(x1, x2, path):
     x1 = cv2.cvtColor(x1, cv2.COLOR_BGR2GRAY)
     x2 = cv2.cvtColor(x2, cv2.COLOR_BGR2GRAY)
 
     absdiff = cv2.absdiff(x1, x2)
-    cv2.imwrite("diff/diff_"+str(frame)+".png", absdiff)
+    cv2.imwrite(path, absdiff)
+
+
+def writeDiff(x1, x2, frame):
+    writeImage(x1, x2, "diff/diff_"+str(frame)+".png")
 
 def writeSame(x1, x2, frame):
-    x1 = cv2.cvtColor(x1, cv2.COLOR_BGR2GRAY)
-    x2 = cv2.cvtColor(x2, cv2.COLOR_BGR2GRAY)
+    writeImage(x1, x2, "same/same_"+str(frame)+".png")
 
-    absdiff = cv2.absdiff(x1, x2)
-    cv2.imwrite("same/same_"+str(frame)+".png", absdiff)
-
-
-def checkFrames(x1, x2, frame):
+def checkFramesMSE(x1, x2, frame):
     x1 = cv2.cvtColor(x1, cv2.COLOR_BGR2GRAY)
     x2 = cv2.cvtColor(x2, cv2.COLOR_BGR2GRAY)
 
     m = mse(x1, x2) # mse
     s = ssim(x1, x2) # ssim
-  
     print(str(frame) + " - (mse, ssim) -> ("+str(m)+", "+str(s)+")")
     return m
 
@@ -84,7 +82,7 @@ while success:
 songs = []
 
 for i in range(1, len(frames)):
-    if checkFrames(frames[i-1], frames[i], i) > 1000.0:
+    if checkFramesMSE(frames[i-1], frames[i], i) > 1000.0:
         writeDiff(frames[i-1], frames[i], i)
     else:
         writeSame(frames[i-1], frames[i], i)
