@@ -44,18 +44,18 @@ class SongReader:
         print("templating matching")
         self.__match()
 
-        print("printing templates")
-        self.__write_templates()
+#        print("printing templates")
+#        self.__write_templates()
 
         print("cropping images")
         self.__crop()
     
-        print("printing test frames")
-        self.__write_cropped()
+#        print("printing test frames")
+#        self.__write_cropped()
 
         print("reading text")
         self.__get_text()
-        return self.__songs
+        return list(set(self.__songs)) # remove duplicates
 
     def __save_frames(self, image):
         self.__frames.append(image)
