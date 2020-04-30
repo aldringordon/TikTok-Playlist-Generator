@@ -8,6 +8,9 @@
 
 import os
 
+import cv2
+import numpy as np
+
 # Python Image Library's Image Class
 from PIL import Image
 
@@ -25,7 +28,6 @@ for r, d, f in os.walk(path):
             files.append(os.path.join(r, file))
 
 for f in files:
-    
     # Opens RGB Image
     im = Image.open(f)
 
@@ -40,3 +42,15 @@ for f in files:
 
     #cr.show()
     cr.save(f.replace(import_folder, export_folder))
+
+
+# opencv implementation
+export_folder = "cv/"
+
+for f in files:
+    im = cv2.imread(f)
+
+    # [y:y+h, x:x+w]
+    cr = im[650:800, 0:600]
+
+    cv2.imwrite(f.replace(import_folder, export_folder), cr)
