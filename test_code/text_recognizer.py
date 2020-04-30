@@ -1,17 +1,42 @@
+import os
 import pytesseract as tess
 from PIL import Image
 
-data_location = "../test_data/"
-test_data = ["test1.png", "test2.png", "test3.png", "test4.png", "test5.png"]
-images = [data_location + x for x in test_data]
+# returns (str,str) : (name,artist)
+def getSong(s):
+    name = ""
+    artist = ""
 
+    i = 0
+    while not s[i] == "\n":
+        name += s[i]
+        i += 1
 
-for test_image in images:
-    img = Image.open(test_image)
+    for x in range(i,len(s)):
+        if not s[x] == "\n":
+            artist += s[x]
+
+    return name, artist
+
+directory = "crop/"
+import_folder = "cropped/"
+
+path = directory+import_folder
+
+files = []
+# r=root, d=directories, f=files
+for r, d, f in os.walk(path):
+    for file in f:
+        if ".jpg" in file:
+            files.append(os.path.join(r, file))
+
+songs = []
+for f in files:
+    img = Image.open(f)
     text = tess.image_to_string(img)
-    print("#####################")
-    print("test image: " + test_image)
-    print("---------------------")
-    print(text)
-    print("---------------------")
-    print("text.size() = " + str(len(text)))
+    song = getSong(text)
+    songs.append(song)
+    print("-------------------------")
+    print("test image: " + f + ":")
+    print("\tName: "+song[0])
+    print("\tArtist: "+song[1])
