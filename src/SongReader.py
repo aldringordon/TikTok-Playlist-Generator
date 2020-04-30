@@ -38,23 +38,28 @@ class SongReader:
        
     def get_song_information(self):
         
-        print("converting mp4 to frames")
+        print("converting mp4 to frames . . . ",end="")
         self.__convert()
+        print("done")
         
-        print("templating matching")
+        print("templating matching . . . ",end="")
         self.__match()
+        print("done")
 
 #        print("printing templates")
 #        self.__write_templates()
 
-        print("cropping images")
+        print("cropping images . . . ",end="")
         self.__crop()
+        print("done")
     
 #        print("printing test frames")
 #        self.__write_cropped()
 
-        print("reading text")
+        print("reading text . . . ",end="")
         self.__get_text()
+        print("done")
+
         return list(set(self.__songs)) # remove duplicates
 
     def __save_frames(self, image):
