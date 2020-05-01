@@ -6,7 +6,6 @@
 import cv2
 import numpy as np
 import pytesseract as tess
-from PIL import Image
 
 class SongReader:
 
