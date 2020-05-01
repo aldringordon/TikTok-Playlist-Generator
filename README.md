@@ -1,8 +1,8 @@
 # TikTok Music Recommendation Playlist Generator #
 
-[Workspace](https://trello.com/b/QOrGF8iI/tiktok-music-video-playlist-generator)
+[Public Trello Board](https://trello.com/b/QOrGF8iI/tiktok-music-video-playlist-generator)
 
-Takes a tiktok video that contains screenshots songs that somebody is recommending.
+Takes an mp4 video that contains screenshots of different songs.
 
 Creates a SpotifyPlaylist of the songs in the video.
 
@@ -13,4 +13,4 @@ Creates a SpotifyPlaylist of the songs in the video.
 * Trello
 * Git
 
-The aim of the project is to develop a backend for the program in python with the intention of creating a view interface for a possible iOS app or simple web app.
+The aim of the project is to impelement the back-end functionality of the intended application with the possibility of creating a web-app or mobile front-end.

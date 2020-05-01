@@ -75,7 +75,7 @@ class SongReader:
 # convert mp4 to invidiual frames
     def __convert(self):
         sec = 0
-        frame_rate = 0.1
+        frame_rate = 0.2
         count = 1
 
         success = self.__get_frame(sec)

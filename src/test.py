@@ -9,3 +9,5 @@ songs = reader.get_song_information()
 print("---------------------------")
 for x,y in songs:
     print(x + " - " + y)
+
+print("size: " + str(len(songs)))
