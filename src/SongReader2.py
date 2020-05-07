@@ -14,6 +14,8 @@ class SongReader(object):
             print("error opening file")
             self._vidcap = None
 
+        self._images = []
+
         self._songs = set() # avoid duplicates of song names
 
         # for conversion
@@ -24,26 +26,22 @@ class SongReader(object):
 
     def convert(self):
         sec = 0
-        count = 1
-        print("converting frame")
+        print("converting frames")
         
         self._vidcap.set(cv2.CAP_PROP_POS_MSEC, sec*1000)
         has_frames, image = self._vidcap.read()
         while has_frames:
-            
-            # check frame matches template
-            if self._match(image):
-                print("    %i image matched" % count)
-                count += 1
-
-                # crop
-                image_info = self._crop(image)
-
-                # read song information in image
-                self._read(image_info)
-
+            self._images.append(image)
             sec = round(sec + self._frame_rate, 2)
             has_frames, image = self._vidcap.read()
+
+        count = 1
+        for image in self._images:
+            if self._match(image):
+                print("    %i image matched" % count)
+                cropped_img = self._crop(image)
+                self._read(cropped_img)
+                count += 1
 
     def get_song_information(self):
         return self._songs
