@@ -6,10 +6,20 @@
 * Takes an mp4 video that contains screenshots of different songs.
 * Creates a SpotifyPlaylist of the songs in the video.
 
+### Libraries: ###
+* python3
+* opencv
+* imutils
+* tesseract
+
 ### Tools Used: ###
-* OpenCV
-* Tesseract
 * Trello
 * Git
 
-The aim of the project is to impelement the back-end functionality of the intended application with the possibility of creating a web-app or mobile front-end.
+### Project Purpose: ###
+* Learn how to use third party libraries.
+* Learn to use the git command line interface.
+* Develop a practical solution to a problem using artificial intelligence.
+* Understand how api functions that request information from a large database behave, and how to manipulate that data for the designers purpose.
+
+This project was undertaken prior to taking the required computer vision course, so the design choices and methods used reflect my decisions before studying the field.
