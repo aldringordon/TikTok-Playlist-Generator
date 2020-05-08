@@ -26,7 +26,8 @@ class PlayListCreator:
         
         self._add_songs()
         print('song uris:')
-        print(list(self._song_uris))
+        for song in self._song_uris:
+            print(song)
         self._add_to_playlist()
 
     # gets the URI for the users playlist to add the tracks to
@@ -59,9 +60,11 @@ class PlayListCreator:
     def _add_songs(self):
         for name, artist in self._songs:
             result = self._sp.search(name + " - " + artist,type='track')
-            uri = result['tracks']['items'][0]['uri']
-            if uri:
+            try:
+                uri = result['tracks']['items'][0]['uri']
                 self._song_uris.add(uri.replace('spotify:track:',''))
+            except Exception:
+                pass
 
     # add the songs to the playlist using the uris form _add_songs()
     def _add_to_playlist(self):
